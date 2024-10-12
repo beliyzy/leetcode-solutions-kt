@@ -8,7 +8,7 @@
  * }
  */
 class Solution {
-   fun isPalindrome(head: ListNode?): Boolean {
+    fun isPalindrome(head: ListNode?): Boolean {
         var slow = head
         var fast = head
 
@@ -17,7 +17,24 @@ class Solution {
             fast = fast.next!!.next
         }
 
-        var curr: ListNode? = slow
+        val reversed = reverseList(slow)
+
+        var originalPtr = head
+        var reversedPtr = reversed
+
+        while (reversedPtr != null) {
+            if (originalPtr?.`val` != reversedPtr.`val`) return false
+            originalPtr = originalPtr.next
+            reversedPtr = reversedPtr.next
+        }
+
+        return true
+    }
+
+    fun reverseList(list: ListNode?): ListNode? {
+        val head = list ?: return null
+
+        var curr: ListNode? = head
         var next: ListNode?
         var prev: ListNode? = null
 
@@ -28,15 +45,6 @@ class Solution {
             curr = next
         }
 
-        var originalPtr = head
-        var reversedPtr = prev
-
-        while (reversedPtr != null) {
-            if (originalPtr?.`val` != reversedPtr.`val`) return false
-            originalPtr = originalPtr.next
-            reversedPtr = reversedPtr.next
-        }
-
-        return true
+        return prev
     }
 }
